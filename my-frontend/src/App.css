@@ -1,0 +1,9 @@
+:root {
+  background-color: #2a3856;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  color: #d1e5f7;
+}

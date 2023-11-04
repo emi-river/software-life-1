@@ -2,22 +2,26 @@ import { useEffect, useState } from 'react'
 import './App.css'
 
 function App() {
-  const [movie, setMovie] = useState('')
+  const [movies, setMovies] = useState([])
 
   useEffect(() => {
     fetch('/movies')
       .then((response) => response.json())
       .then((result) => {
-        setMovie(result)
+        setMovies(result)
       })
   }, [])
 
   return (
     <>
-      <div>
+      <div className="title">
         <h1>Movies</h1>
-        <h2>{movie.name}</h2>
       </div>
+      {movies.map((movie) => (
+        <div key={movie.id}>
+          <h2>{movie.name}</h2>
+        </div>
+      ))}
     </>
   )
 }

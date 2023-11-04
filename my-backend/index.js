@@ -4,12 +4,29 @@ const express = require('express'),
 const app = express(),
   port = process.env.PORT || 3000
 
-app.get('/movies', (_request, response) => {
-  response.send({ name: 'Avatar 2' })
+const dotenv = require('dotenv'),
+  { Client } = require('pg')
+
+dotenv.config()
+
+const client = new Client({
+  connectionString: process.env.PGURI
 })
+
+client.connect()
+
+app.get('/movies', async (_request, response) => {
+  const { rows } = await client.query('SELECT * FROM movies')
+
+  response.send(rows)
+})
+
+// app.get('/movies', (_request, response) => {
+//   response.send({ name: 'Avatar 2' })
+// })
 
 app.use(express.static(path.join(path.resolve(), 'public')))
 
 app.listen(3000, () => {
-  console.log('http://localhost:3000/ is live!')
+  console.log(`http://localhost:${port} is live!`)
 })
