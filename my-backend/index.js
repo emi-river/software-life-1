@@ -21,10 +21,6 @@ app.get('/movies', async (_request, response) => {
   response.send(rows)
 })
 
-// app.get('/movies', (_request, response) => {
-//   response.send({ name: 'Avatar 2' })
-// })
-
 app.use(express.static(path.join(path.resolve(), 'public')))
 
 app.listen(3000, () => {

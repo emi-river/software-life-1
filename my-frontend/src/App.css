@@ -1,9 +1,50 @@
 :root {
   background-color: #2a3856;
+  color: #d1e5f7;
 }
 
 .title {
   display: flex;
   justify-content: center;
-  color: #d1e5f7;
+  border-bottom: 1px solid #d1e5f7;
+  margin-bottom: 20px;
+}
+
+.movieList {
+  width: 250px;
+  height: 350px;
+  margin-bottom: 90px;
+  margin-left: 50px;
+}
+
+.movieName {
+  margin: 0px;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: repeat(4, 300px);
+}
+
+.rating {
+  font-size: small;
+  margin: 5px 0px 10px;
+}
+
+.starRating {
+  width: 15px;
+  margin-right: 5px;
+}
+
+.img {
+  width: 150px;
+  height: 200px;
+}
+
+#genre {
+  border: 1px solid #d1e5f7;
+  border-radius: 5px;
+  width: max-content;
+  margin-top: 5px;
+  padding: 2px 5px;
 }
