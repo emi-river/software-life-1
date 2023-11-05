@@ -3,6 +3,13 @@ import './App.css'
 
 function App() {
   const [movies, setMovies] = useState([])
+  const [addMovie, setAddMovie] = useState({
+    name: '',
+    genre: '',
+    img: '',
+    rating: '',
+    description: ''
+  })
 
   useEffect(() => {
     fetch('/movies')
@@ -11,6 +18,31 @@ function App() {
         setMovies(result)
       })
   }, [])
+
+  const addAMovie = () => {
+    fetch('/movies', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(addMovie),
+      mode: 'no-cors'
+    })
+      .then((response) => response.json())
+      .then(() => {
+        setAddMovie({
+          name: '',
+          genre: '',
+          img: '',
+          rating: '',
+          description: ''
+        })
+      })
+  }
+
+  function submit() {
+    addAMovie()
+  }
 
   return (
     <>
@@ -34,6 +66,50 @@ function App() {
             <p>{movie.description}</p>
           </div>
         ))}
+      </div>
+      <div>
+        <h3>ADD A MOVIE:</h3>
+        <div>
+          <input
+            type="text"
+            placeholder="Movie name"
+            onChange={(e) => setAddMovie({ ...addMovie, name: e.target.value })}
+            value={addMovie.name}
+          />
+          <input
+            type="text"
+            placeholder="Movie genre"
+            onChange={(e) =>
+              setAddMovie({ ...addMovie, genre: e.target.value })
+            }
+            value={addMovie.genre}
+          />
+          <input
+            type="text"
+            placeholder="Image link"
+            onChange={(e) => setAddMovie({ ...addMovie, img: e.target.value })}
+            value={addMovie.img}
+          />
+          <input
+            type="text"
+            placeholder="IMDb rating"
+            onChange={(e) =>
+              setAddMovie({ ...addMovie, rating: e.target.value })
+            }
+            value={addMovie.rating}
+          />
+          <input
+            type="text"
+            placeholder="Movie description"
+            onChange={(e) =>
+              setAddMovie({ ...addMovie, description: e.target.value })
+            }
+            value={addMovie.description}
+          />
+          <button type="submit" onClick={submit}>
+            Add a movie!!
+          </button>
+        </div>
       </div>
     </>
   )
