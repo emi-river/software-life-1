@@ -15,10 +15,6 @@ const client = new Client({
   connectionString: process.env.PGURI
 })
 
-const connect = new Connection({
-  connectionString: process.env.PGURI
-})
-
 client.connect()
 
 app.get('/movies', async (_request, response) => {
@@ -28,26 +24,16 @@ app.get('/movies', async (_request, response) => {
 })
 
 app.post('/movies', async (request, response) => {
-  const data = [
-    request.body.name,
-    request.body.genre,
-    request.body.img,
-    request.body.rating,
-    request.body.description
-  ]
-  const insertMovie =
-    'INSERT INTO movies (name, genre, img, rating, description) VALUES (?,?,?,?,?)'
+  const { name, genre, img, rating, description } = request.body
+  console.log(request.body.name)
+  await client.query(
+    'INSERT INTO movies(name, genre, img, rating, description) VALUES ($1, $2, $3, $4, $5);',
+    [name, genre, img, rating, description]
+  )
 
-  client.query(insertMovie, data, (error) => {
-    if (error) {
-      return response.status(500).json({
-        success: false,
-        error: error.message
-      })
-    } else {
-      return response.send(data)
-    }
-  })
+  const { rows } = await client.query('SELECT * FROM movies')
+
+  response.status(500).send(rows)
 })
 
 app.use(express.static(path.join(path.resolve(), 'public')))
