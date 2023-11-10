@@ -1,0 +1,19 @@
+services:
+  backend:
+    build: backend
+    depends_on:
+      database:
+        condition: service_healthy
+    env_file:
+      - ./backend/.env
+    ports:
+      - "3000:3000"
+  database:
+    env_file:
+      - ./backend/.env
+    healthcheck:
+      interval: 1s
+      test: 'pg_isready --username=postgres'
+    image: postgres
+    volumes:
+      - ./data:/var/lib/postgresql/data
