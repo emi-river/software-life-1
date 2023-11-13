@@ -1,4 +1,6 @@
-# https://software-life-1-movie.onrender.com
+# Links
+
+## https://software-life-1-movie.onrender.com
 
 ## https://github.com/emi-river/software-life-1
 
@@ -8,4 +10,6 @@
 
 # How to use docker compose cp & docker compose exec
 
-##
+## docker compose cp ./init.sql database:/tmp
+
+## docker compose exec -it database psql -U postgres -d postgres -f /tmp/init.sql
