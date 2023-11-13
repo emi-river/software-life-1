@@ -7,7 +7,7 @@ const app = express(),
 app.use(express.json())
 
 const dotenv = require('dotenv'),
-  { Client, Connection } = require('pg')
+  { Client } = require('pg')
 
 dotenv.config()
 

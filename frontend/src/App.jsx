@@ -10,7 +10,7 @@ function App() {
   const [description, setDescription] = useState('')
 
   useEffect(() => {
-    fetch('/movies')
+    fetch('/api/movies')
       .then((response) => response.json())
       .then((result) => {
         setMovies(result)
@@ -27,7 +27,7 @@ function App() {
       rating,
       description
     }
-    fetch('/movies', {
+    fetch('/api/movies', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
